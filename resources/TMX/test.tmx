@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="2017.09.27" orientation="orthogonal" renderorder="right-down" width="8" height="8" tilewidth="16" tileheight="16" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" name="world-sheet" tilewidth="16" tileheight="16" tilecount="40" columns="8">
+  <image source="../Tiles/world-sheet.png" width="128" height="80"/>
+ </tileset>
+ <tileset firstgid="41" name="colliders" tilewidth="16" tileheight="16" tilecount="51" columns="17">
+  <image source="../Tiles/arcade-slopes-16.png" width="272" height="48"/>
+ </tileset>
+ <layer name="Ground" width="8" height="8">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,27,27,0,27,19,5,0,
+15,14,14,15,14,15,14,15
+</data>
+ </layer>
+ <layer name="Collidable" width="8" height="8" visible="0">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,41,0,
+41,41,41,41,41,41,41,41
+</data>
+ </layer>
+ <layer name="Foreground" width="8" height="8">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,30,0,0,0,0,0,0,
+0,38,0,0,0,0,0,0
+</data>
+ </layer>
+</map>
