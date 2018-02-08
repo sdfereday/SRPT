@@ -1,16 +1,16 @@
-// https://github.com/ai/nanoevents
-import EventsHandler from "nanoevents";
+// https://github.com/Olical/EventEmitter
+import EventsHandler from "eventemitter";
 
 class EventManager {
   constructor() {
-    this.emitter = new NanoEvents();
+    this.emitter = new EventsHandler();
   }
-  on() {
-    return this.emitter.on.apply(this.events, arguments);
+  on(name, cb) {
+    this.emitter.addListener(name, cb);
   }
-  tick() {
-    this.emitter.emit("tick");
+  emit(name, params = []) {
+    this.emitter.emitEvent(name, [params]);
   }
 }
 
-export default EventManager;
+export default new EventManager();

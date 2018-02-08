@@ -10,7 +10,7 @@ module.exports = {
     entry: {
         // Order matters here in vendor bundle (apparently)
         dist: path.resolve(__dirname, './src/game.js'),
-        vendor: ['pixi', 'p2', 'phaser', 'miniEvents', 'react', 'recompose', 'nanoevents']
+        vendor: ['pixi', 'p2', 'phaser', 'react', 'recompose', 'wolfy87-eventemitter']
     },
     output: {
         // We do this ([name]) as we've got two entry points above (otherwise they'll fight against each other)
@@ -26,7 +26,7 @@ module.exports = {
             'pixi': path.join(phaserModule, 'build/custom/pixi.js'),
             'p2': path.join(phaserModule, 'build/custom/p2.js'),
             'phaser': path.join(phaserModule, 'build/custom/phaser-split.js'),
-            'miniEvents': path.join(libs, 'mini-events-min.js')
+            'eventemitter': 'wolfy87-eventemitter'
         }
     },
     module: {
@@ -70,7 +70,7 @@ module.exports = {
         }),
         new webpack.optimize.UglifyJsPlugin({
             drop_console: false,
-            minimize: true,
+            minimize: false,
             output: {
                 comments: false
             }

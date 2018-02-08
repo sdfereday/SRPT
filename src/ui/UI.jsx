@@ -1,5 +1,6 @@
 import { compose, withState, withHandlers, lifecycle } from 'recompose';
 import React from 'react';
+import events from '../events/EventManager';
 
 const AppComponent = ({
 	locations,
@@ -42,7 +43,7 @@ export const AppContainer = compose(
     onTravelRequest: ({ nextLocationId, setCurrentLocationId, setNextLocationId }) => () => {
     	console.log("Travel request to", nextLocationId);
       setCurrentLocationId(nextLocationId);
-      events.trigger('onTravelRequest', {nextLocationId});
+      events.emit('onTravelRequest', { nextLocationId });
     }
   }),
   lifecycle({

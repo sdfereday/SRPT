@@ -12,13 +12,13 @@
     "babel-preset-react": "^6.24.1",
     "circular-dependency-plugin": "^4.2.1",
     "expose-loader": "^0.7.3",
-    "nanoevents": "^1.0.2",
     "phaser-ce": "^2.8.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "recompose": "^0.26.0",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.11.1"
+    "webpack-dev-server": "^2.11.1",
+    "wolfy87-eventemitter": "^5.2.4"
   },
   "dependencies": {}
 }

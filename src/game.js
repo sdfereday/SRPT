@@ -14,21 +14,13 @@ import { LOCATIONS } from "./stubs/MapData";
 
 class Game extends Phaser.Game {
   constructor() {
-    // These probably won't stay here
-    // events.add('onTravelRequest');
-    // events.add('onTravelStarted');
-    // events.add('onArrived');
     // https://pacoup.com/2011/06/12/list-of-true-169-resolutions/
     super(128, 128, Phaser.AUTO, 'game', null);
     //this.state.add('SceneState', SceneState, false);
     //this.state.add('GameState', GameState, false);
     this.state.add('FieldState', FieldState, false);
     this.state.add('WarpState', WarpState, false);
-    this.state.start('FieldState', false, false, {
-         x: 0,
-         y: 0,
-         id: 'blahb'
-    });
+    this.state.start('FieldState', false, false);
     // this.state.start('SceneState', false, false, {
     //   useMapId: 'introduction',
     //   useSceneId: 'scene-2'
