@@ -19,6 +19,9 @@ class FieldState {
 
   create() {
     console.log("Field state loaded.");
+
+    // Before this triggers, it'd be good to put an animation that kicks off first (don't wait for it, just set a timer),
+    // but it'll make things look authentic, then the warp state just needs to be a singular animation on its own.
     events.on('onTravelRequest', (data) => {
       this.state.start("WarpState", false, false, data);
     });
