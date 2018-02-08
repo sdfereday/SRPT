@@ -15,8 +15,6 @@ class FieldState {
     this.sceneData = params;
   }
 
-  preload() {}
-
   create() {
     console.log("Field state loaded.");
 

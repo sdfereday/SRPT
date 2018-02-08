@@ -29,8 +29,6 @@ class GameState {
     this.coordinates = { x: 0, y: 0 };
   }
 
-  preload() {}
-
   create() {
     console.log("Warp state loaded.");
     console.log(this.params);
@@ -41,6 +39,10 @@ class GameState {
     this.setCoordinates(x, y);
 
     console.log(this.coordinates, this.destination);
+
+    this.tilesprite = this.game.add.tileSprite(0, -56, 512, 512, 'warp');
+    this.tilesprite.animations.add('run');
+    this.tilesprite.animations.play('run', 20, true);
   }
 
   update() {
@@ -51,8 +53,6 @@ class GameState {
     let my = this.current.y > this.to.y ? -1 : 1;
     this.setCoordinates(this.current.x + mx, this.current.y + my);
 
-    console.log(distanceApprox(this.current, this.to));
-
     // Exposing this publically will allow the UI, etc to use it for something.
     if (distanceApprox(this.current, this.to) <= 0) {
       // events.trigger('onArrived', this.data.p2);
@@ -62,6 +62,10 @@ class GameState {
         console.log("Travelling...");
     }
 
+  }
+
+  shutdown() {
+    this.tilesprite.destroy();
   }
 
   setCoordinates(x, y) {

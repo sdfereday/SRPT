@@ -2,7 +2,7 @@ import 'pixi';
 import 'p2';
 import Phaser from 'phaser';
 // import SceneState from './states/SceneState';
-// import GameState from './states/GameState';
+import BootState from './states/BootState';
 import FieldState from './states/FieldState';
 import WarpState from './states/WarpState';
 
@@ -15,12 +15,12 @@ import { LOCATIONS } from "./stubs/MapData";
 class Game extends Phaser.Game {
   constructor() {
     // https://pacoup.com/2011/06/12/list-of-true-169-resolutions/
-    super(128, 128, Phaser.AUTO, 'game', null);
-    //this.state.add('SceneState', SceneState, false);
-    //this.state.add('GameState', GameState, false);
+    super(512, 316, Phaser.AUTO, 'game', null);
+    this.state.add('BootState', BootState, false);
     this.state.add('FieldState', FieldState, false);
     this.state.add('WarpState', WarpState, false);
-    this.state.start('FieldState', false, false);
+    this.state.start('BootState', false, false);
+    //this.state.add('SceneState', SceneState, false);
     // this.state.start('SceneState', false, false, {
     //   useMapId: 'introduction',
     //   useSceneId: 'scene-2'
