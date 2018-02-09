@@ -20,5 +20,8 @@
     "webpack-dev-server": "^2.11.1",
     "wolfy87-eventemitter": "^5.2.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2"
+  }
 }

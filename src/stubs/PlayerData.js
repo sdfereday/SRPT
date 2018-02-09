@@ -8,9 +8,6 @@ export const PlayerData = {
       console.info("Already at that location.");
       return;
     }
-
-    console.log("Setting players location:", x, y, id);
-
     this.x = x;
     this.y = y;
     this.currentLocation = id;

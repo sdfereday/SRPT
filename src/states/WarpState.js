@@ -7,6 +7,7 @@ import { distanceApprox } from '../helpers/Helpers';
 // Also find a nicer way to store volatile data, these aren't great.
 import { LOCATIONS } from "../stubs/MapData";
 import { PlayerData } from "../stubs/PlayerData";
+import { UniverseStore } from "../stubs/UniverseData";
 
 class GameState {
 
@@ -53,13 +54,18 @@ class GameState {
     let my = this.current.y > this.to.y ? -1 : 1;
     this.setCoordinates(this.current.x + mx, this.current.y + my);
 
+    const distance = distanceApprox(this.current, this.to);
+
     // Exposing this publically will allow the UI, etc to use it for something.
-    if (distanceApprox(this.current, this.to) <= 0) {
+    if (distance <= 0) {
       // events.trigger('onArrived', this.data.p2);
       PlayerData.setCurrentLocation(this.to);
+      //UniverseData.set('distanceToDestination', 0);
+      console.log("Warp field deactivating, approaching", this.to.meta.name);
       this.state.start("FieldState", false, false);
     } else {
         console.log("Travelling...");
+        UniverseStore.dispatch({ type: 'setDistance', distance });
     }
 
   }
