@@ -19,4 +19,3 @@ const reducers = combineReducers({
 
 // Finally, create the initial store.
 export const UniverseStore = createStore(reducers);
-

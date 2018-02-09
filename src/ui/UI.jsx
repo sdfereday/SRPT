@@ -1,8 +1,7 @@
 import { compose, withState, withHandlers, withProps, lifecycle } from 'recompose';
 import React from 'react';
-import { connect } from 'react-redux';
-import events from '../events/EventManager';
 import { UniverseStore } from "../stubs/UniverseData";
+import events from '../events/EventManager';
 
 const AppComponent = ({
 	locations,
@@ -36,20 +35,20 @@ const AppComponent = ({
   )
 }
 
-// Do I really need to use redux AND recompose? They're both the same idea.
+// Use withState for volatile, redux for persistent.
 export const AppContainer = compose(
   withProps({
-    store: UniverseStore,
-    distance: 0
+    store: UniverseStore
   }),
-  connect(
-    ({ distance }) => {
-      console.log(distance);
-      return { distance }
-    }
-  ),
+  // connect(
+  //   ({ distance }) => {
+  //     console.log(distance);
+  //     return { distance }
+  //   }
+  // ),
   withState('currentLocationId', 'setCurrentLocationId', null),
   withState('nextLocationId', 'setNextLocationId', null),
+  withState('distance', 'setCurrentDistance', 0),
 	withHandlers({
   	onHandleChange: ({ currentLocationId, setNextLocationId }) => (e) => {
 	    const nextLocation = e.target.value;
@@ -68,6 +67,9 @@ export const AppContainer = compose(
   lifecycle({
   	componentDidMount(){
     	console.log("Mounted UI");
+      events.on('onWorldUpdate', ({distanceRemaining}) => {
+        // this.props.setCurrentDistance(distanceRemaining);
+      });
     }
 	})
 )

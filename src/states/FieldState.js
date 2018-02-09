@@ -2,13 +2,11 @@ import "pixi";
 import "p2";
 import Phaser from "phaser";
 import events from '../events/EventManager';
-import { dispatch } from 'redux';
 
 //// TODO: Fix the problem with the relative import urls
 // Also find a nicer way to store volatile data, these aren't great.
 import DSMapData from "../stubs/MapData";
 import DSPlayerData from "../stubs/PlayerData";
-import { UniverseStore, setDistance } from "../stubs/UniverseData";
 
 class FieldState {
   init(params) {
@@ -25,9 +23,6 @@ class FieldState {
     events.on('onTravelRequest', (data) => {
       this.state.start("WarpState", false, false, data);
     });
-
-    //UniverseStore.dispatch({ type: 'setDistance', distance: 0 });
-    setDistance(0);
   }
 
   update() {}

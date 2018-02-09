@@ -2,12 +2,13 @@ import 'pixi';
 import 'p2';
 import Phaser from 'phaser';
 import { distanceApprox } from '../helpers/Helpers';
+import events from '../events/EventManager';
+import { setDistance } from "../stubs/UniverseData";
 
 //// TODO: Fix the problem with the relative import urls
 // Also find a nicer way to store volatile data, these aren't great.
 import { LOCATIONS } from "../stubs/MapData";
 import { PlayerData } from "../stubs/PlayerData";
-import { UniverseStore } from "../stubs/UniverseData";
 
 class GameState {
 
@@ -22,6 +23,11 @@ class GameState {
   get to()
   {
     return this.destination;
+  }
+
+  get currentDistance()
+  {
+    return this.distance;
   }
 
   init(params) {
@@ -44,30 +50,32 @@ class GameState {
     this.tilesprite = this.game.add.tileSprite(0, -56, 512, 512, 'warp');
     this.tilesprite.animations.add('run');
     this.tilesprite.animations.play('run', 20, true);
+
+    // Fires a ticker event that'll pol the event system. This is only used where non-important
+    // updates are made and it's known that continuous data is streaming in.
+    //this.game.time.events.repeat(Phaser.Timer.SECOND / 2, 10, this.onWorldUpdate, this);
   }
 
   update() {
-
     // Not overly immutable, might want to fix that somehow. In fact,
     // may want to just pass in what you want to affect such is functional.
     let mx = this.current.x > this.to.x ? -1 : 1;
     let my = this.current.y > this.to.y ? -1 : 1;
     this.setCoordinates(this.current.x + mx, this.current.y + my);
 
-    const distance = distanceApprox(this.current, this.to);
+    this.distance = distanceApprox(this.current, this.to);
 
     // Exposing this publically will allow the UI, etc to use it for something.
-    if (distance <= 0) {
-      // events.trigger('onArrived', this.data.p2);
-      PlayerData.setCurrentLocation(this.to);
-      //UniverseData.set('distanceToDestination', 0);
+    if (this.distance <= 0) {
+      events.emit('onArrived', {});
+      // TODO: Add all of this stuff to a store, even the distance bits.
+      PlayerData.setCurrentLocation(this.to); // Shouldn't need to be here anymore. Can read from though.
       console.log("Warp field deactivating, approaching", this.to.meta.name);
       this.state.start("FieldState", false, false);
-    } else {
-        console.log("Travelling...");
-        UniverseStore.dispatch({ type: 'setDistance', distance });
     }
 
+    // Unsure if this is expensive yet.
+    this.onWorldUpdate();
   }
 
   shutdown() {
@@ -79,6 +87,13 @@ class GameState {
     this.coordinates.y = y;
   }
 
+  onWorldUpdate() {
+    setDistance(this.currentDistance);
+
+    // events.emit('onWorldUpdate', {
+    //   distanceRemaining: this.currentDistance
+    // });
+  }
 }
 
 export default GameState;
